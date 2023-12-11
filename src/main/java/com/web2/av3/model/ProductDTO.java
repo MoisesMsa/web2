@@ -6,13 +6,13 @@ import java.time.LocalDate;
 
 public record ProductDTO(
         @NotNull
-        Long id,
+        Long id_produto,
         String nome_produto,
         String descricao_produto,
         Float preco_produto,
         LocalDate data_validade,
         Integer estoque,
-        String fornecedor,
+        Supplier fornecedor,
         boolean ativo
 ) {
 }

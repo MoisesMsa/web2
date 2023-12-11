@@ -9,8 +9,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Table(name = "produtos")
-@Entity(name = "Produtos")
+@Table(name = "products")
+@Entity(name = "Products")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,7 +28,7 @@ public class Product {
     }
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProduto;
+    private Long id_produto;
 
     @NotBlank
     private String nome_produto;
@@ -41,7 +41,7 @@ public class Product {
 
     @ManyToOne //vários produtos podem estar associados a um mesmo fornecedor
     @JoinColumn(name="id_fornecedor")
-    private String fornecedor;
+    private Supplier fornecedor;
     private boolean ativo;
 
     public void atualizarProduto(ProductDTO dados) {

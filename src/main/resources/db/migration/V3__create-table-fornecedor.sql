@@ -1,5 +1,5 @@
 CREATE TABLE Fornecedor (
-    id_fornecedor INT PRIMARY KEY,
+    id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     endereco VARCHAR(100),
     telefone VARCHAR(20),

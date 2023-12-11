@@ -34,11 +34,11 @@ public class ProductService {
 
     @Transactional
     public ResponseEntity updateProduct(@RequestBody @Valid ProductDTO dados){
-        if(dados.id() == null){
+        if(dados.id_produto() == null){
             return ResponseEntity.badRequest().build();
         }
 
-        Product product = repository.getReferenceById(dados.id());
+        Product product = repository.getReferenceById(dados.id_produto());
         product.atualizarProduto(dados);
         return ResponseEntity.ok().build();
     }
