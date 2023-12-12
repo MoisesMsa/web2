@@ -6,10 +6,12 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categoria")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Categoria {
 
     @Id

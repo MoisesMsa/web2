@@ -1,4 +1,4 @@
-CREATE TABLE Fornecedor (
+CREATE TABLE fornecedor (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     endereco VARCHAR(100),
