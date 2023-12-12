@@ -1,57 +1,54 @@
 package com.web2.av3.domain.fornecedor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web2.av3.domain.produto.Produto;
+import com.web2.av3.services.FornecedorService;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "suppliers")
-@Entity(name = "Suppliers")
+import java.util.List;
+
+@Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
 public class Fornecedor {
 
-    public Fornecedor(Fornecedor supplier){
-        this.nome_fornecedor = supplier.getNome_fornecedor();
-        this.endereco = supplier.getEndereco();
-        this.telefone = supplier.getTelefone();
-        this.email = supplier.getEmail();
-        this.cnpj = supplier.getCnpj();
+    public Fornecedor() { }
+    public Fornecedor(Long id) {
+        this.id = id;
+        FornecedorService fornecedor = new FornecedorService();
     }
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_fornecedor;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotBlank
-    private String nome_fornecedor;
+    @NotBlank(message = "O nome é obrigatório")
+    private String nome;
+
+    @NotBlank(message = "O endereço é obrigatório")
     private String endereco;
+
+    @NotBlank(message = "O telefone é obrigatório")
     private String telefone;
+
+    @NotBlank(message = "O email é obrigatório")
+    @Email(message = "Formato de email inválido")
     private String email;
 
-    @NotNull
+    @NotBlank(message = "O cnpj é obrigatório")
+    @Column(unique = true)
     private String cnpj;
 
-    public void atualizarFornecedor(FornecedorDTO dados) {
-        if (dados.nome_fornecedor() != null) {
-            this.nome_fornecedor = dados.nome_fornecedor();
-        }
-        if (dados.endereco() != null) {
-            this.endereco = dados.endereco();
-        }
-        if(dados.telefone() != null){
-            this.telefone = dados.telefone();
-        }
-        if(dados.email() != null){
-            this.email = dados.email();
-        }
-        if(dados.cnpj() != null){
-            this.cnpj = dados.cnpj();
-        }
-    }
+    // Fornecedor tem vários produtos
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Produto> produtos;
+
+
 }
+

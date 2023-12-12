@@ -1,72 +1,53 @@
 package com.web2.av3.domain.produto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web2.av3.domain.categoria.Categoria;
 import com.web2.av3.domain.fornecedor.Fornecedor;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
+
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
-@Table(name = "products")
-@Entity(name = "Products")
+@Entity
+@Table(name = "produto")
+@Data
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-
 public class Produto {
-    public Produto(Produto produtos){
-        this.nome_produto = produtos.getNome_produto();
-        this.descricao_produto = produtos.getDescricao_produto();
-        this.preco_produto = produtos.getPreco_produto();
-        this.data_validade = produtos.getData_validade();
-        this.estoque = produtos.getEstoque();
-        this.fornecedor = produtos.getFornecedor();
-        this.ativo = produtos.isAtivo();
-    }
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_produto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-    @NotBlank
-    private String nome_produto;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-    @NotBlank
-    private String descricao_produto;
-    private Float preco_produto;
-    private LocalDate data_validade;
+    @Column(name = "descricao", nullable = true)
+    private String descricao;
+
+    @Column(name = "preco")
+    private Double preco;
+
+    @Column(name = "data_validade", length = 15)
+    private String dataValidade;
+
+    @Column(name = "estoque")
     private Integer estoque;
 
-    @ManyToOne //vários produtos podem estar associados a um mesmo fornecedor
-    @JoinColumn(name="id_fornecedor")
+    @Column(name = "ativo")
+    private Integer ativo;
+
+    // Produto tem 1 fornecedor
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id", nullable = false)
     private Fornecedor fornecedor;
-    private boolean ativo;
 
-    public void atualizarProduto(ProductDTO dados) {
-        if (dados.nome_produto() != null) {
-            this.nome_produto = dados.nome_produto();
-        }
-        if (dados.descricao_produto() != null) {
-            this.descricao_produto = dados.descricao_produto();
-        }
-        if(dados.preco_produto() != null){
-            this.preco_produto = dados.preco_produto();
-        }
-        if(dados.data_validade() != null){
-            this.data_validade = dados.data_validade();
-        }
-        if(dados.estoque() != null){
-            this.estoque = dados.estoque();
-        }
-        if(dados.fornecedor() != null){
-            this.fornecedor = dados.fornecedor();
-        }
-    }
-
-    public void inativar(){
-        this.ativo = false;
-    }
+//    @ManyToMany(mappedBy = "produtos")
+//    private Set<Categoria> categorias = new HashSet<>();
 }
+
