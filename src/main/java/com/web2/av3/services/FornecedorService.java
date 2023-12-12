@@ -1,6 +1,6 @@
-package com.web2.av3.service;
+package com.web2.av3.services;
 
-import com.web2.av3.model.Supplier;
+import com.web2.av3.domain.fornecedor.Fornecedor;
 import com.web2.av3.repositories.SupplierRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @Service
-public class SupplierService {
+public class FornecedorService {
     @Autowired
     SupplierRepository repository;
 
     @Transactional
-    public ResponseEntity<Supplier> createSupplier(@RequestBody @Valid Supplier supplier){
-        repository.save(new Supplier(supplier));
+    public ResponseEntity<Fornecedor> createSupplier(@RequestBody @Valid Fornecedor supplier){
+        repository.save(new Fornecedor(supplier));
         return ResponseEntity.noContent().build();
     }
 

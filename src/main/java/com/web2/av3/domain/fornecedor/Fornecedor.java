@@ -1,4 +1,4 @@
-package com.web2.av3.model;
+package com.web2.av3.domain.fornecedor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -15,9 +15,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Supplier {
+public class Fornecedor {
 
-    public Supplier(Supplier supplier){
+    public Fornecedor(Fornecedor supplier){
         this.nome_fornecedor = supplier.getNome_fornecedor();
         this.endereco = supplier.getEndereco();
         this.telefone = supplier.getTelefone();
@@ -37,7 +37,7 @@ public class Supplier {
     @NotNull
     private String cnpj;
 
-    public void atualizarFornecedor(SupplierDTO dados) {
+    public void atualizarFornecedor(FornecedorDTO dados) {
         if (dados.nome_fornecedor() != null) {
             this.nome_fornecedor = dados.nome_fornecedor();
         }

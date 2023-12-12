@@ -1,5 +1,6 @@
-package com.web2.av3.model;
+package com.web2.av3.domain.produto;
 
+import com.web2.av3.domain.fornecedor.Fornecedor;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public record ProductDTO(
         Float preco_produto,
         LocalDate data_validade,
         Integer estoque,
-        Supplier fornecedor,
+        Fornecedor fornecedor,
         boolean ativo
 ) {
 }

@@ -1,8 +1,8 @@
-package com.web2.av3.model;
+package com.web2.av3.domain.fornecedor;
 
 import jakarta.validation.constraints.NotNull;
 
-public record SupplierDTO(
+public record FornecedorDTO(
         @NotNull
         Long id_fornecedor,
         String nome_fornecedor,

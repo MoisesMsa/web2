@@ -1,4 +1,4 @@
-package com.web2.av3.domain.category;
+package com.web2.av3.domain.categoria;
 
 import lombok.*;
 
@@ -10,17 +10,17 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String nome;
 
     @Column
-    private String description;
+    private String descricao;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;

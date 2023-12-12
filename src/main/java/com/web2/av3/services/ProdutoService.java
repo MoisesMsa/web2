@@ -1,7 +1,7 @@
-package com.web2.av3.service;
+package com.web2.av3.services;
 
-import com.web2.av3.model.Product;
-import com.web2.av3.model.ProductDTO;
+import com.web2.av3.domain.produto.Produto;
+import com.web2.av3.domain.produto.ProductDTO;
 import com.web2.av3.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProdutoService {
 
     @Autowired
     ProductRepository repository;
 
-    public List<Product> getAllProducts(){
+    public List<Produto> getAllProducts(){
         return repository.findAllByAtivoTrue();
     }
 
-    public Product findProductById(@PathVariable Long id){
+    public Produto findProductById(@PathVariable Long id){
         return repository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build()).getBody();
     }
 
     @Transactional
-    public ResponseEntity<Product> createProduct(@RequestBody @Valid Product product){
-        repository.save(new Product(product));
+    public ResponseEntity<Produto> createProduct(@RequestBody @Valid Produto product){
+        repository.save(new Produto(product));
         return ResponseEntity.noContent().build();
     }
 
@@ -38,7 +38,7 @@ public class ProductService {
             return ResponseEntity.badRequest().build();
         }
 
-        Product product = repository.getReferenceById(dados.id_produto());
+        Produto product = repository.getReferenceById(dados.id_produto());
         product.atualizarProduto(dados);
         return ResponseEntity.ok().build();
     }
@@ -59,7 +59,7 @@ public class ProductService {
             return ResponseEntity.badRequest().build();
         }
 
-        Product product = repository.getReferenceById(id);
+        Produto product = repository.getReferenceById(id);
         product.inativar();
         return ResponseEntity.ok().build();
     }

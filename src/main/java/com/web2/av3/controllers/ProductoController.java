@@ -1,8 +1,8 @@
 package com.web2.av3.controllers;
 
-import com.web2.av3.model.Product;
-import com.web2.av3.model.ProductDTO;
-import com.web2.av3.service.ProductService;
+import com.web2.av3.domain.produto.Produto;
+import com.web2.av3.domain.produto.ProductDTO;
+import com.web2.av3.services.ProdutoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,23 +12,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductoController {
     @Autowired
-    ProductService product;
+    ProdutoService product;
 
     @GetMapping
-    public List<Product> getAllProducts(){
+    public List<Produto> getAllProducts(){
         return product.getAllProducts();
     }
 
     @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id){
+    public Produto getById(@PathVariable Long id){
         return product.findProductById(id);
     }
 
     @PostMapping
     @Transactional
-    public void createProduct(@RequestBody @Valid Product data){
+    public void createProduct(@RequestBody @Valid Produto data){
         product.createProduct(data);
     }
 

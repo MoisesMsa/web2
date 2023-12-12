@@ -1,5 +1,6 @@
-package com.web2.av3.model;
+package com.web2.av3.domain.produto;
 
+import com.web2.av3.domain.fornecedor.Fornecedor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Product {
-    public Product(Product produtos){
+public class Produto {
+    public Produto(Produto produtos){
         this.nome_produto = produtos.getNome_produto();
         this.descricao_produto = produtos.getDescricao_produto();
         this.preco_produto = produtos.getPreco_produto();
@@ -41,7 +42,7 @@ public class Product {
 
     @ManyToOne //vários produtos podem estar associados a um mesmo fornecedor
     @JoinColumn(name="id_fornecedor")
-    private Supplier fornecedor;
+    private Fornecedor fornecedor;
     private boolean ativo;
 
     public void atualizarProduto(ProductDTO dados) {
