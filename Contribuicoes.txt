@@ -1,0 +1,17 @@
+Contribuições dos integrantes do grupo para o projeto.
+
+- Migrações com o flyway:
+    Lucas, Lúcio e Moisés
+- Toda a parte de spring security:
+    Lucas e Moisés
+- Relacionamento entre as tabelas:
+    Lucas e Moisés
+- Classes criadas (com seus services, repositories, controllers, models, etc.):
+    - configuration/security e user:
+        Lucas
+    - Categoria e metade da classe fornecedor:
+        Moisés
+    - Produto e metade da classe fornecedor:
+        Lúcio
+- Refatorações e padronização dos nomes:
+    Lucas e Moisés
