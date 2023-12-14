@@ -101,6 +101,7 @@ public class ProdutoController {
         List<Produto> produtos = produtoRepository.findAll();
 
         List<ProdutoResponse> produtoResponses = produtos.stream()
+                .filter(produto -> produto.getFornecedor().getId().equals(fornecedorId))
                 .map(produto -> new ProdutoResponse(produto))
                 .collect(Collectors.toList());
 
