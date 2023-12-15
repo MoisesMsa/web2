@@ -15,3 +15,51 @@ Contribuições dos integrantes do grupo para o projeto.
         Lúcio
 - Refatorações e padronização dos nomes:
     Lucas e Moisés
+
+
+Explicação da config de segurança:
+
+SecurityConfigurations (configurações gerais):
+
+    Inativação da proteção contra CSRF.
+    Configuração da política de gerenciamento de sessões como STATELESS, indicando que a aplicação não criará nem guardará estados de sessões.
+    Definição das regras de autorização para diferentes endpoints: permitAll para cadastro de usuario e liberação do cadastro de fornecedores para usuários logados do tipo admin.
+    Adiciona um filtro personalizado (SecurityFilter) antes do filtro padrão de autenticação do Spring Security.
+
+SecurityFilter:
+
+    Implementa a lógica para extrair o token do cabeçalho da solicitação.
+    Valida o token usando o serviço de token (TokenService).
+    Se o token for válido, recupera as informações do usuário associadas a ele e cria um objeto de autenticação.
+    Define o objeto de autenticação no contexto de segurança do Spring (SecurityContextHolder).
+    Permite que a requisição continue para os filtros subsequentes.
+
+TokenService:
+
+    Gera tokens JWT com base nas informações do usuário.
+    Valida tokens JWT para garantir sua autenticidade.
+    Define um tempo de expiração para os tokens (2 horas neste caso).
+
+AuthenticationController:
+
+    Gerencia as solicitações de login e registro.
+    No endpoint /login, autentica as credenciais do usuário usando o AuthenticationManager do Spring Security.
+    Se a autenticação for bem-sucedida, gera um token JWT usando o TokenService.
+    Retorna o token no corpo da resposta.
+    No endpoint /register, registra novos usuários após verificar a existência do login.
+    Usa o BCryptPasswordEncoder para criptografar a senha antes de armazená-la no banco de dados.
+
+UserRepository:
+
+    Elemento padrão do Spring para interagir com o banco de dados e processar operações relacionadas ao usuário.
+    Apresenta apenas o método findByLogin, responsável por encontrar o user no banco no momento de carregá-lo
+
+Fluxo Geral:
+
+    O usuário se cadastra no endpoint /register, fornecendo login, senha e a role;
+    O usuário fornece credenciais (login e senha) no endpoint /login;
+    No endpoint /login, o AuthenticationManager é usado para autenticar as credenciais;
+    Se a autenticação for bem-sucedida, um token JWT é gerado pelo TokenService e retornado ao cliente no corpo da requisição;
+    Em requisições subsequentes, o token é incluído no cabeçalho "Authorization";
+    O SecurityFilter intercepta a solicitação, valida o token e define o objeto de autenticação no contexto de segurança;
+    As regras de autorização definidas na classe SecurityConfigurations são aplicadas;
